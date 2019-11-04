@@ -52,6 +52,9 @@ const AppNavbar = () => {
                         <NavItem>
                             <NavLink href="/insightsPoc">POC Insights</NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink href="/analyticsPoc">POC Analytics</NavLink>
+                        </NavItem>
                     </Nav>
                     <Nav className="ml-auto" navbar>
                         <NavLink className="navBarAdmin">
