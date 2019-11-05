@@ -28536,7 +28536,7 @@ const analyticsData = {
               },
               "upcomingEvents": {
                 "_total": 20,
-                "ticketmaster": 10
+                "ticketmaster": 11
               },
               "_links": {
                 "self": {

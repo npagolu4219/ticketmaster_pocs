@@ -5,37 +5,23 @@ import {
     BarChart, LineChart, AreaChart, Area, Line,linearGradient, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, LabelList
   } from 'recharts';
 
-//   class CustomizedAxisTick extends Component {
-//     render() {
-//       const {
-//         x, y, stroke, payload,
-//       } = this.props;
-  
-//       return (
-//         <g transform={`translate(${x},${y})`}>
-//           <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
-//         </g>
-//       );
-//     }
-//   }
-
 class Analytics extends Component{
     constructor(props){
         super(props)
         this.state = {
-            data: getFormattedData(analyticsData)
+            data: getFormattedData(analyticsData),
         }
     }
+
     
     render(){
         let {data} = this.state;
-        // console.log(analyticsData.events._embedded.events)
         return(
             <div>
                 <div className='m-5'>
                     <BarChart
                     width={1200}
-                    height={300}
+                    height={500}
                     data={data.events._embedded.events}
                     margin={{
                     top: 20, right: 30, left: 20, bottom: 5,
@@ -50,24 +36,24 @@ class Analytics extends Component{
                     />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="Min Price" fill="#8884d8">
-                    <LabelList dataKey="Min Price" position="top" />
+                    <Bar dataKey="Max Price" fill="#8884d8">
+                        <LabelList dataKey="Max Price" position="top" />
                     </Bar>
-                    <Bar dataKey="Max Price" fill="#82ca9d">
-                    <LabelList dataKey="Max Price" position="top" />
+                    <Bar dataKey="Min Price" fill="#82ca9d">
+                        <LabelList dataKey="Min Price" position="top" />
                     </Bar>
 
                 </BarChart>
                 </div>
                     <div className='m-5'>
-                <LineChart width={1200} height={300} data={data.attractions._embedded.attractions}
+                <LineChart width={1200} height={500} data={data.attractions._embedded.attractions}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" >
                     <Label value="Event name" offset={-5} position="insideBottom" />
                     </XAxis>
                     <YAxis
-                        label={{ value: 'No of upcoming Events', angle: -90, position: 'insideBottomLeft' }} 
+                        label={{ value: 'Upcoming Event Tickets', angle: -90, position: 'insideBottomLeft' }} 
                     />
                     <Tooltip />
                     <Legend />
@@ -82,14 +68,14 @@ class Analytics extends Component{
                 </div>
 
                 <div className='m-5'>
-                <LineChart width={1200} height={300} data={data.venues._embedded.venues}
+                <LineChart width={1200} height={500} data={data.venues._embedded.venues}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" >
                     <Label value="Venue name" offset={-5} position="insideBottom" />
                     </XAxis>
                     <YAxis 
-                        label={{ value: 'No of upcoming Events', angle: -90, position: 'insideBottomLeft' }} 
+                        label={{ value: 'Upcoming Event Tickets', angle: -90, position: 'insideBottomLeft' }} 
                     />
                     <Tooltip />
                     <Legend />
@@ -105,7 +91,6 @@ export default Analytics
 
 function getFormattedData(data){
     data.events._embedded.events.forEach(e=>{
-        // console.log(e.priceRanges && e.priceRanges[0].min)
         e["Min Price"] = e.priceRanges && e.priceRanges[0].min
         e["Max Price"] = e.priceRanges && e.priceRanges[0].max
     })
