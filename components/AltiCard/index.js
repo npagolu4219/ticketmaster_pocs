@@ -21,7 +21,7 @@ const AltiCard = (props) => {
                     <CardText className={'event-details'}>
                         <div>{props.detail.description}</div>
                         <div>
-                            <Moment tz={props.detail.date.timezone} format="YYYY-MM-DD HH:mm A">
+                            <Moment tz={props.detail.date.timezone} format="YYYY-MM-DD hh:mm A">
                                 {props.detail.date.start.dateTime}
                             </Moment>
                         </div>
