@@ -1,10 +1,12 @@
 import React from 'react';
 import Layout from '../components/layout';
-import ShareEvent from '../components/shareEvent';
+import TwitterHashDetails from '../components/hashtwitterData';
 //<ShareEvent />
 const Home = () => (
+  
   <Layout>
-     <ShareEvent />
+    <br></br>
+      <TwitterHashDetails />
   </Layout>
 )
 
