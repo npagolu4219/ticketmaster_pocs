@@ -11,7 +11,6 @@
     border: solid 1px #6c757d;
     padding: 10px;
   }
-  
   .App {
     background-image: linear-gradient(262deg, rgb(0, 45, 161), rgb(2, 108, 223) 55%, rgb(0, 45, 161));
     height: 60px;
@@ -105,6 +104,23 @@
     padding: 10px;
     margin-bottom: 20px;
   }
+  #__next-prerender-indicator {
+    display: none;
+  }
+  .toastwrapper:hover{
+    box-shadow: 0 16px 30px 1px rgba(0,0,0,.1);
+    transition: 1s;
+    cursor: pointer;
+    transform: scale(1.1);
+    z-index: 100;
+    background-color: #026cdf;
+    a,svg,span{
+      color: #fff !important;
+    }
+  }
+  .total_events{
+    color: #333;
+  }
   .toastwrapper{
     max-width: 350px;
     overflow: hidden;
@@ -120,12 +136,22 @@
     border-radius: 0.25rem;
     margin-right: 15px;
     margin-left: 15px;
+    a{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      border-bottom: 1px solid rgba(194,194,194,0.5);
+      display: block;
+      padding-bottom: 5px;
+    }
+    .venue_location{
+      font-size: 20px;
+    }
     p{
       color: #333 !important;
       overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; 
-  padding-bottom: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap; 
       .eventLink{
         color: #026cdf;
         margin-left: 10px;

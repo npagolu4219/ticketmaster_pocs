@@ -1,6 +1,9 @@
 import React from 'react';
-import { FaBullhorn,FaMapMarkerAlt } from 'react-icons/fa';
-import { Row,Col,Input } from 'reactstrap';
+import { FaBullhorn, FaMapMarkerAlt } from 'react-icons/fa';
+import { Row, Col, Input } from 'reactstrap';
+import { graphql } from 'react-apollo';
+import { getHashtagCountQuery } from './queries/queries'
+import axios from 'axios';
 
 let data = [
     {
@@ -153,77 +156,94 @@ let data = [
 ]
 
 class TwitterHashDetails extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            hashDetails : this.getSortedData(data),
-            isAppear : false,
-            hashDetailsFiltered: this.getSortedData(data)
+            hashDetails: this.getSortedData(data),
+            isAppear: false,
+            hashDetailsFiltered: this.getSortedData(data),
+            totalcount:""
         }
     }
-    
-    componentDidMount(){
-    fetch('10.6.19.70:3000/api/hashtagCount').then(res => res.json().then(data => {
-            this.setState({
-                isAppear:true,
-                hashDetails:data
-            })
-            console.log(data);
-        }))
-    }
-    
-
-    getSortedData = (data) =>{
-        data = data.filter(e => e.noOfPeopleTalking!=="0")
-        let sortedData = data.sort((a,b)=> b.noOfPeopleTalking-a.noOfPeopleTalking)
+    getSortedData = (data) => {
+        data = data.filter(e => e.noOfPeopleTalking !== "0")
+        let sortedData = data.sort((a, b) => b.noOfPeopleTalking - a.noOfPeopleTalking)
         return sortedData
     }
 
-    handleChange = (e) =>{
-        let {hashDetails} = this.state;
+    // componentDidMount(){
+    //     this.getHashData();
+    // }
+
+    // async getHashData() {
+    //     let query = `{
+    //         getHashtagCount{
+    //         eventName
+    //         noOfPeopleTalking
+    //         country
+    //         eventUrl
+    //         city
+    //         }
+    //     } `;
+
+    //     let data = await axios.post('http://10.6.19.70:3000/api/hashtagCount', {
+    //         query: query
+    //     })
+    //     console.log(data);
+    // }
+
+    handleChange = (e) => {
+        let { hashDetails } = this.state;
         let value = e.target.value;
         let hashDetailsFiltered = []
-        if(!value){
+        if (!value) {
             hashDetailsFiltered = hashDetails;
-        }else{
-            hashDetailsFiltered = hashDetails.filter(e =>{
-                if((e.eventName.toLowerCase().search(value.toLowerCase())!==-1) || (e.country.toLowerCase().search(value.toLowerCase())!==-1) || (e.city.toLowerCase().search(value.toLowerCase())!==-1)){
+        } else {
+            hashDetailsFiltered = hashDetails.filter(e => {
+                if ((e.eventName.toLowerCase().search(value.toLowerCase()) !== -1) || (e.country.toLowerCase().search(value.toLowerCase()) !== -1) || (e.city.toLowerCase().search(value.toLowerCase()) !== -1)) {
                     return e
                 }
             })
         }
         hashDetailsFiltered = this.getSortedData(hashDetailsFiltered)
-        this.setState({hashDetailsFiltered})
+        this.setState({ hashDetailsFiltered })
     }
 
-  render() {
-      let { isAppear,hashDetails, hashDetailsFiltered } = this.state;
-    
-    return (
-        <div className="container">
-            <div className="text-center">
-                <h2>Event Details</h2>
+    render() {
+        console.log(this.props);
+        let { isAppear, hashDetails, hashDetailsFiltered,totalcount } = this.state;
+        this.totalcount = hashDetailsFiltered.length;
+        return (
+            <div className="container">
+                <br></br>
+                <div className="text-center">
+                    <h2>Event Twitter Dashboard</h2>
+                </div><hr></hr>
+                <br></br>
+                <div>
+                    <Input type="text" name="event" className="seachEvent" placeholder="Search by event or location ... " onChange={this.handleChange} />
+                </div>
+                <p className="total_events">Total event count : {this.totalcount}</p>
+               
+                <Row>
+                    {hashDetailsFiltered.map(hashDetail => (
+                        <Col xs="4" className="toastwrapper xs-7 mb-4 pb-1">
+                            <a href={hashDetail.eventUrl} target="_blank" className="toastHeader" title={hashDetail.eventName}>{hashDetail.eventName}</a>
+                            <p><FaBullhorn size="1.3em" color="#026cdf" />
+                                <span className="talkingCount"> {hashDetail.noOfPeopleTalking}
+                                    <i className="peaopleare"> people are talking about this event</i>
+                                </span>
+                            </p>
+                            <p>
+                            <FaMapMarkerAlt size="1.3em" color="#026cdf" />
+                                <span className="venue_location" title={hashDetail.city}>{hashDetail.country},{hashDetail.city}</span>
+                            </p>
+                        </Col>
+                    ))}
+                </Row>
             </div>
-            <br></br>
-            <div>
-                <Input type="text" name="event" className="seachEvent" placeholder="Search by event or location ... " onChange={this.handleChange}/>
-            </div>
-
-            <Row>
-            {hashDetailsFiltered.map(hashDetail => (
-                <Col xs="5" className="toastwrapper xs-7 mb-3 pb-1">
-                    <a  href={hashDetail.eventUrl} target="_blank" className="toastHeader" title={hashDetail.eventName}>{hashDetail.eventName}</a>
-                    <p><FaBullhorn size="1.5em" color="#026cdf" /> 
-                    <span className="talkingCount"> {hashDetail.noOfPeopleTalking}
-                    <i className="peaopleare"> people are talking about this event</i> 
-                    </span><pre></pre><FaMapMarkerAlt size="1.5em" color="#026cdf"/> 
-                    <span className="">{hashDetail.country},{hashDetail.city}</span>
-                    </p>
-                </Col>
-                ))}
-            </Row>
-        </div>
-    )
-  }
+        )
+    }
 }
-export default TwitterHashDetails
+export default graphql(getHashtagCountQuery)(TwitterHashDetails)
+// export default TwitterHashDetails
