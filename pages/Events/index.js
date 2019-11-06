@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import "./events.scss"
 import axios from 'axios';
+import { FaSearch, FaMapMarkerAlt } from 'react-icons/fa';
 import _ from 'lodash';
 import { Container, Row, Col, Button, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 
@@ -98,9 +100,9 @@ const Events = (props) => {
 
     return (
         <Layout>
-            <Container>
+            <Container className={"mapSearchBar"}>
                 <Row>
-                    <Col>
+                    <Col className={"searchDropdown"}>
                         <Select
                             value={selectedOption}
                             onChange={handleChange}
@@ -111,7 +113,7 @@ const Events = (props) => {
                         <InputGroup>
                             <Input placeholder="search by Event, venue etc.." value={keyword} name="keyword" onChange={updateKeyWord} />
                             <InputGroupAddon addonType="append">
-                                <InputGroupText>@</InputGroupText>
+                                <InputGroupText><FaSearch /></InputGroupText>
                             </InputGroupAddon>
                         </InputGroup>
                     </Col>
