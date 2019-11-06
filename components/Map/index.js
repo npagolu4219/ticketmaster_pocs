@@ -10,14 +10,14 @@ import {
 } from "react-google-maps";
 
 import Spiderfy from "./Spiderfy";
-import AltiCard from '../card';
+import AltiCard from '../AltiCard';
 
 
 const MyMapComponent = compose(
     withScriptjs,
     withGoogleMap
 )(props => {
-
+    console.log(props.markers[0]);
     let data = [
         {
             eventName: "LA Clippers vs. Toronto Raptors",
@@ -1059,7 +1059,8 @@ const MyMapComponent = compose(
             title: this.eventName,
             subtitle: "",
             description: this.venueName,
-            url: this.images[9].url
+            url: this.images[9].url,
+            date: this.dates
         });
     }
 
@@ -1069,6 +1070,14 @@ const MyMapComponent = compose(
             infoOpen: false
         })
     }
+
+
+    const loadHandler = map => {
+        // Store a reference to the google map instance in state
+        setMapRef(map);
+        // Fit map bounds to contain all markers
+        fitBounds(map);
+    };
 
 
     let markers = props.markers ? props.markers.map(function (item, index) {
@@ -1090,27 +1099,31 @@ const MyMapComponent = compose(
             />
         )
     }) : [];
-
+    props.markers.length && console.log(props.markers[0].lat, props.markers[0].lng);
     return (
         <div style={{ height: '100vh', width: '100%' }}>
-            <GoogleMap
-                defaultZoom={10}
-                defaultCenter={data[0]}
-                onClick={closeInfoWindow}
+            {props.markers.length && (
+                <GoogleMap
+                    defaultZoom={10}
+                    initialCenter={props.markers[0]}
+                    center={props.markers[0]}
+                    onClick={closeInfoWindow}
+                    onLoad={loadHandler}
 
-            >
-                {
-                    eventDetails.infoOpen && (
-                        <InfoWindow position={{ lat: eventDetails.lat, lng: eventDetails.lng }} onCloseClick={closeInfoWindow}>
-                            <AltiCard detail={eventDetails} />
-                        </InfoWindow>
+                >
+                    {
+                        eventDetails.infoOpen && (
+                            <InfoWindow position={{ lat: eventDetails.lat, lng: eventDetails.lng }} onCloseClick={closeInfoWindow}>
+                                <AltiCard detail={eventDetails} />
+                            </InfoWindow>
 
-                    )
-                }
-                <Spiderfy>
-                    {markers}
-                </Spiderfy>
-            </GoogleMap>
+                        )
+                    }
+                    <Spiderfy>
+                        {markers}
+                    </Spiderfy>
+                </GoogleMap>
+            )}
         </div>
     );
 });
