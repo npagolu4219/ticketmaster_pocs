@@ -21,21 +21,21 @@ class Spiderfy extends React.Component {
     }
 
     markerNodeMounted(ref) {
-        const marker = ref && ref.state[MARKER];
-        this.oms.addMarker(marker);
-        let currentMark;
-        let pr = this.props;
-        var iw = new google.maps.InfoWindow();
+        if(ref){
+            const marker = ref.state[MARKER];
+            this.oms.addMarker(marker);
+            let currentMark;
+            let pr = this.props;
+            var iw = new google.maps.InfoWindow();
 
-        window.google.maps.event.addListener(marker, "spider_click", (e) => {
-            currentMark = this;
-            marker.icon.updateInfo();
-            if (this.props.onSpiderClick) this.props.onSpiderClick(e);
-        });
-
-
+            window.google.maps.event.addListener(marker, "spider_click", (e) => {
+                currentMark = this;
+                marker.icon.updateInfo();
+                if (this.props.onSpiderClick) this.props.onSpiderClick(e);
+            });
+        }
     }
-
+    
     render() {
         return React.Children.map(this.props.children, child =>
             React.cloneElement(child, { ref: this.markerNodeMounted })
