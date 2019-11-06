@@ -16,7 +16,7 @@ class Spiderfy extends React.Component {
             markersWontHide: true,
             basicFormatEvents: true
         });
-        console.log(this.oms)
+        // console.log(this.oms)
         this.markerNodeMounted = this.markerNodeMounted.bind(this);
     }
 
