@@ -8,10 +8,15 @@ import { Container, Row, Col, Button, InputGroup, InputGroupAddon, InputGroupTex
 import Select from 'react-select';
 
 import Layout from '../../components/layout';
-import MyMapComponent from '../../components/Map';
+import MyMapComponent from '../../components/Map/_index';
+
+import EventMap from '../../components/Map';
+
+import './events.scss';
 
 
 const Events = (props) => {
+    const [message, setMessage] = useState('Loading ...')
     const [markers, setMarkers] = useState([]);
     const [keyword, setKeyword] = useState(null);
     const [selectedOption, setSelectedOption] = useState({
@@ -77,10 +82,12 @@ const Events = (props) => {
                 });
             });
         });
+        !result.length && setMessage('No data found!')
         setMarkers(result);
     };
 
     let handleChange = (option) => {
+        setKeyword("");
         setSelectedOption(option);
     }
 
@@ -96,10 +103,8 @@ const Events = (props) => {
         getEvents(selectedOption.value);
     }, []);
 
-    console.log(selectedOption)
-
     return (
-        <Layout>
+        <Layout className={'events-container'}>
             <Container className={"mapSearchBar"}>
                 <Row>
                     <Col className={"searchDropdown"}>
@@ -122,8 +127,8 @@ const Events = (props) => {
                     </Col>
                 </Row>
             </Container>
-            {
-                markers.length &&   (
+            {/* {
+                markers.length && (
                     <MyMapComponent
                         markers={markers}
                         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6ytGTT86EN1ih4mm10nWQ7uV36khvcCc"
@@ -132,7 +137,12 @@ const Events = (props) => {
                         mapElement={<div style={{ height: `100%` }} />}
                     />
                 )
-            }
+            } */}
+            {markers.length ? (
+                <EventMap markers={markers} />
+            ) : (
+                    <h4 className={'no-data'}>{message}</h4>
+                )}
         </Layout>
     )
 }
