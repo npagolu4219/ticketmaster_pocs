@@ -4,10 +4,6 @@ import { Toast, ToastBody, ToastHeader,Row,Col,Input } from 'reactstrap';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
-const client = new ApolloClient({
-    uri = "10.6.20.17:8080/api/hashtagCount"
-})
-
 
 class TwitterHashDetails extends React.Component {
     constructor(props){
@@ -107,19 +103,7 @@ class TwitterHashDetails extends React.Component {
         }
        
     }
-    
-    componentDidMount(){
-        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-    targetUrl = '10.6.20.17:8080/api/hashtagCount'
-    fetch(proxyUrl + targetUrl).then(res => res.json().then(json => {
-            this.setState({
-                isAppear:true,
-                hashDetails:json
-            })
-            console.log(json);
-        }))
-    }
-
+   
   render() {
       let { isAppear,hashDetails } = this.state;
         
@@ -142,7 +126,6 @@ class TwitterHashDetails extends React.Component {
                 </Col>
                 ))}
             </Row>
-           
             
         </div>
         </ApolloClient>
