@@ -32,7 +32,7 @@ class Analytics extends Component{
                     <Label value="Event name" offset={-5} position="insideBottom" />
                     </XAxis>
                     <YAxis 
-                    label={{ value: 'Price range $(min/max)', angle: -90, position: 'insideBottomLeft' }} 
+                    label={{ value: 'Price range $(min/max)', angle: -90, position: 'insideLeft' }} 
                     />
                     <Tooltip />
                     <Legend />
@@ -53,7 +53,7 @@ class Analytics extends Component{
                     <Label value="Event name" offset={-5} position="insideBottom" />
                     </XAxis>
                     <YAxis
-                        label={{ value: 'Upcoming Event Tickets', angle: -90, position: 'insideBottomLeft' }} 
+                        label={{ value: 'Upcoming Event Tickets', angle: -90, position: 'insideLeft' }} 
                     />
                     <Tooltip />
                     <Legend />
@@ -75,7 +75,7 @@ class Analytics extends Component{
                     <Label value="Venue name" offset={-5} position="insideBottom" />
                     </XAxis>
                     <YAxis 
-                        label={{ value: 'Upcoming Event Tickets', angle: -90, position: 'insideBottomLeft' }} 
+                        label={{ value: 'Upcoming Event Tickets', angle: -90, position: 'insideLeft' }} 
                     />
                     <Tooltip />
                     <Legend />
