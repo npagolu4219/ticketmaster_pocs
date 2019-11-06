@@ -85,6 +85,7 @@ const Events = (props) => {
     };
 
     let handleChange = (option) => {
+        setKeyword("")
         setSelectedOption(option);
     }
 
