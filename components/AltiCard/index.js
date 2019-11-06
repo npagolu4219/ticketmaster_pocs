@@ -19,11 +19,15 @@ const AltiCard = (props) => {
                     <CardTitle><h6>{props.detail.title}</h6></CardTitle>
                     <CardSubtitle>{props.detail.subtitle}</CardSubtitle>
                     <CardText className={'event-details'}>
-                        <div>{props.detail.description}</div>
                         <div>
-                            <Moment tz={props.detail.date.timezone} format="YYYY-MM-DD hh:mm A">
+                            <div className={'title'}>Venue</div>
+                            <div>{props.detail.description}</div>
+                        </div>
+                        <div>
+                            <div className={'title'}>Date</div>
+                            <div><Moment tz={props.detail.date.timezone} format="YYYY-MM-DD hh:mm A">
                                 {props.detail.date.start.dateTime}
-                            </Moment>
+                            </Moment></div>
                         </div>
                     </CardText>
                     <Button outline color="primary">Book</Button>

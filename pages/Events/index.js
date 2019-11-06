@@ -16,6 +16,7 @@ import './events.scss';
 
 
 const Events = (props) => {
+    const [message, setMessage] = useState('Loading ...')
     const [markers, setMarkers] = useState([]);
     const [keyword, setKeyword] = useState(null);
     const [selectedOption, setSelectedOption] = useState({
@@ -81,11 +82,12 @@ const Events = (props) => {
                 });
             });
         });
+        !result.length && setMessage('No data found!')
         setMarkers(result);
     };
 
     let handleChange = (option) => {
-        setKeyword("")
+        setKeyword("");
         setSelectedOption(option);
     }
 
@@ -139,7 +141,7 @@ const Events = (props) => {
             {markers.length ? (
                 <EventMap markers={markers} />
             ) : (
-                    <h4 className = {'no-data'}>No data found!</h4>
+                    <h4 className={'no-data'}>{message}</h4>
                 )}
         </Layout>
     )
