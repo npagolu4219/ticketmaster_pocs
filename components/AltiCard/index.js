@@ -3,8 +3,14 @@ import {
     CardTitle, CardSubtitle, Button
 } from 'reactstrap';
 
+import Moment from 'react-moment';
+import 'moment-timezone';
+
+import './altiCard.scss';
+
+const dateToFormat = '1976-04-19T12:59-0500';
+
 const AltiCard = (props) => {
-    console.log(props);
     return (
         <div>
             <Card body>
@@ -12,7 +18,14 @@ const AltiCard = (props) => {
                 <CardBody>
                     <CardTitle><h6>{props.detail.title}</h6></CardTitle>
                     <CardSubtitle>{props.detail.subtitle}</CardSubtitle>
-                    <CardText>{props.detail.description}</CardText>
+                    <CardText className={'event-details'}>
+                        <div>{props.detail.description}</div>
+                        <div>
+                            <Moment tz={props.detail.date.timezone} format="YYYY-MM-DD HH:mm A">
+                                {props.detail.date.start.dateTime}
+                            </Moment>
+                        </div>
+                    </CardText>
                     <Button outline color="primary">Book</Button>
                 </CardBody>
             </Card>

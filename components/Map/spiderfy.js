@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { MAP, MARKER } from "react-google-maps/lib/constants";
-import Details from '../../components/card'
 
 
 class Spiderfy extends React.Component {
@@ -17,17 +16,16 @@ class Spiderfy extends React.Component {
             markersWontHide: true,
             basicFormatEvents: true
         });
-        console.log(this.oms)
+        // console.log(this.oms)
         this.markerNodeMounted = this.markerNodeMounted.bind(this);
     }
 
     markerNodeMounted(ref) {
-        const marker = ref.state[MARKER];
+        const marker = ref && ref.state[MARKER];
         this.oms.addMarker(marker);
         let currentMark;
         let pr = this.props;
         var iw = new google.maps.InfoWindow();
-        console.log(iw);
 
         window.google.maps.event.addListener(marker, "spider_click", (e) => {
             currentMark = this;
