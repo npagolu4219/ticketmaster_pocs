@@ -1,5 +1,6 @@
 import React, { Component, useEffect, Fragment } from 'react';
 import Head from 'next/head';
+import { FaUser } from 'react-icons/fa';
 
 import {
     Container,
@@ -59,6 +60,9 @@ const AppNavbar = () => {
                        
                     </Nav>
                     <Nav className="ml-auto" navbar>
+                    <NavLink className="navBarAdmin">
+                            <FaUser />
+                    </NavLink>
                         <NavLink className="navBarAdmin">
                             Admin
                     </NavLink>

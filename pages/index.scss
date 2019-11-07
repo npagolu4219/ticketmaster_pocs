@@ -122,6 +122,23 @@
   .total_events{
     color: #333;
   }
+  .global_loader{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0,0, 0.6);
+    p{
+      font-size: 20px;
+      text-align: center;
+      color: #fff;
+      position: absolute;
+      top:50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+  }
   .toastwrapper{
     max-width: 350px;
     overflow: hidden;
